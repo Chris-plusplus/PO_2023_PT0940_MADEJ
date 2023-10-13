@@ -1,6 +1,6 @@
 package agh.ics.oop;
 
-import agh.ics.oop.model.Move;
+import agh.ics.oop.model.MoveDirection;
 
 import java.awt.*;
 
@@ -10,7 +10,7 @@ public class World {
         run(OptionsParser.parse(args));
         System.out.println("Stop");
     }
-    public static void run(Move.MoveDirection[] commands){
+    public static void run(MoveDirection[] commands){
         for(int i = 0; i != commands.length; ++i){
             switch (commands[i]){
                 case FORWARD -> System.out.print("zwierzak idzie do przodu\n");
