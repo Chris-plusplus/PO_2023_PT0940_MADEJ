@@ -81,3 +81,33 @@ fabric.properties
 
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
+oolab/.gradle/8.2/dependencies-accessors/gc.properties
+oolab/.gradle/8.2/gc.properties
+oolab/.gradle/buildOutputCleanup/cache.properties
+oolab/.gradle/vcs-1/gc.properties
+oolab/build/classes/java/main/agh/ics/oop/model/MoveDirection.class
+oolab/build/classes/java/main/agh/ics/oop/OptionsParser.class
+oolab/build/classes/java/main/agh/ics/oop/World$1.class
+oolab/build/classes/java/main/agh/ics/oop/World.class
+oolab/build/tmp/compileJava/compileTransaction/stash-dir/Move$MoveDirection.class.uniqueId2
+oolab/build/tmp/compileJava/compileTransaction/stash-dir/Move.class.uniqueId4
+oolab/build/tmp/compileJava/compileTransaction/stash-dir/OptionsParser.class.uniqueId1
+oolab/build/tmp/compileJava/compileTransaction/stash-dir/World$1.class.uniqueId0
+oolab/build/tmp/compileJava/compileTransaction/stash-dir/World.class.uniqueId3
+oolab/build/tmp/compileTestJava/compileTransaction/stash-dir/OptionsParserTest.class.uniqueId0
+oolab/build/tmp/compileJava/compileTransaction/stash-dir/Vector2d.class.uniqueId2
+oolab/build/tmp/compileJava/compileTransaction/stash-dir/MapDirection.class.uniqueId0
+oolab/build/tmp/compileJava/compileTransaction/stash-dir/MapDirection$1.class.uniqueId1
+oolab/build/test-results/test/binary/output.bin.idx
+oolab/build/reports/tests/test/packages/agh.ics.oop.html
+oolab/build/reports/tests/test/js/report.js
+oolab/build/reports/tests/test/index.html
+oolab/build/reports/tests/test/css/style.css
+oolab/build/reports/tests/test/css/base-style.css
+oolab/build/reports/tests/test/classes/agh.ics.oop.OptionsParserTest.html
+oolab/build/classes/java/test/agh/ics/oop/OptionsParserTest.class
+oolab/build/classes/java/test/agh/ics/oop/model/Vector2dTest.class
+oolab/build/classes/java/test/agh/ics/oop/model/MapDirectionTest.class
+oolab/build/classes/java/main/agh/ics/oop/model/Vector2d.class
+oolab/build/classes/java/main/agh/ics/oop/model/MapDirection.class
+oolab/build/classes/java/main/agh/ics/oop/model/MapDirection$1.class
