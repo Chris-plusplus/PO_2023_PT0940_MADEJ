@@ -18,7 +18,7 @@ public class Vector2d {
     }
 
     public String toString(){
-        return "(%d,%d)".formatted(x, y);
+        return "(%d, %d)".formatted(x, y);
     }
     public boolean precedes(Vector2d other){
         return x <= other.x && y <= other.y;
