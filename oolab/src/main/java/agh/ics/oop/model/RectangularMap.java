@@ -64,6 +64,7 @@ public class RectangularMap implements WorldMap<Animal, Vector2d> {
     public Vector2d getUpperRightCorner() {
         return upperRightCorner;
     }
+    // fajnie jak oba wierzchołki mają gettery
     public Vector2d getLowerLeftCorner() {
         return LOWER_LEFT_CORNER;
     }
