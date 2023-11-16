@@ -48,11 +48,13 @@ public class TextMapTest {
         map.place(s6);
 
         map.move(s6, MoveDirection.LEFT);
-        for(int i = 0; i != 5; ++i){
+        // na gore
+        for(int i = 0; i != 20; ++i){
             map.move(s6, MoveDirection.FORWARD);
         }
         map.move(s1, MoveDirection.RIGHT);
-        for(int i = 0; i != 4; ++i){
+        // na dol
+        for(int i = 0; i != 20; ++i){
             map.move(s1, MoveDirection.FORWARD);
         }
         String expected =   "0: (<) \"Tupcia <3\"\n"+
@@ -65,7 +67,8 @@ public class TextMapTest {
 
         map.place("swinke morskom");
         map.place("a nie");
-        for(int i = 0; i != 5; ++i){
+        // na gore
+        for(int i = 0; i != 20; ++i){
             map.move(s1, MoveDirection.BACKWARD);
         }
         for(int i = 0; i != 4; ++i){
@@ -75,8 +78,9 @@ public class TextMapTest {
         for(int i = 0; i != 4; ++i) {
             map.move("swinke morskom", MoveDirection.BACKWARD);
         }
+        // na dol
         map.move(s3, MoveDirection.RIGHT);
-        for(int i = 0; i != 4; ++i){
+        for(int i = 0; i != 20; ++i){
             map.move(s3, MoveDirection.FORWARD);
         }
 
