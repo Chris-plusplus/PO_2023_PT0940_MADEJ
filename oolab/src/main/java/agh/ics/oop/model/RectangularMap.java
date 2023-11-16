@@ -46,11 +46,13 @@ public class RectangularMap implements WorldMap<Animal, Vector2d> {
 
     @Override
     public void move(Animal obj, MoveDirection moveDirection){
-        Vector2d positionBefore = obj.getPosition();
-        obj.move(moveDirection, this);
-        if(!Objects.equals(positionBefore, obj.getPosition())){
-            animals.remove(positionBefore);
-            animals.put(obj.getPosition(), obj);
+        if (animals.get(obj.getPosition()) == obj){
+            Vector2d positionBefore = obj.getPosition();
+            obj.move(moveDirection, this);
+            if(!Objects.equals(positionBefore, obj.getPosition())){
+                animals.remove(positionBefore);
+                animals.put(obj.getPosition(), obj);
+            }
         }
     }
 
