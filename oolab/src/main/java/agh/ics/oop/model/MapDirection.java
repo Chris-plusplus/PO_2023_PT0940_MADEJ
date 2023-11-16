@@ -20,9 +20,9 @@ public enum MapDirection {
     public String shortString() {
         return switch (this){
             case NORTH -> "^";
-            case EAST -> "<";
+            case EAST -> ">";
             case SOUTH -> "v";
-            case WEST -> ">";
+            case WEST -> "<";
         };
     }
     public MapDirection next(){
