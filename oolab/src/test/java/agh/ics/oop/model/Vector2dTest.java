@@ -15,7 +15,7 @@ public class Vector2dTest {
     public void toStringTest(){
         Vector2d v1 = new Vector2d(420, 1337);
 
-        Assertions.assertEquals(v1.toString(), "(420,1337)");
+        Assertions.assertEquals(v1.toString(), "(420, 1337)");
     }
     @Test
     public void precedesTest(){
