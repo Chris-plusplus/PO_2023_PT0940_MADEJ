@@ -16,8 +16,9 @@ public class Simulation {
         animals = new ArrayList<>();
         for(Vector2d startingPosition : startingPositions){
             Animal newAnimal = new Animal(startingPosition);
-            animals.add(newAnimal);
-            this.map.place(newAnimal);
+            if (this.map.place(newAnimal)){
+                animals.add(newAnimal);
+            }
         }
     }
 
