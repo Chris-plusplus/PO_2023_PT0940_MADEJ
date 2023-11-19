@@ -3,9 +3,6 @@ package agh.ics.oop.model;
 import java.util.Objects;
 
 public class Animal {
-    public static final Vector2d MAP_LOWER_LEFT_CORNER = new Vector2d(0, 0);
-    public static final Vector2d MAP_UPPER_RIGHT_CORNER = new Vector2d(4, 4);
-
     private MapDirection orientation = MapDirection.NORTH;
     private Vector2d position;
 
@@ -17,12 +14,12 @@ public class Animal {
     }
 
     public String toString(){
-        return '{' + position.toString() + ", " + orientation.toString() + '}';
+        return orientation.shortString();
     }
     public boolean isAt(Vector2d position){
         return Objects.equals(this.position, position);
     }
-    public void move(MoveDirection direction){
+    public void move(MoveDirection direction, MoveValidator<Vector2d> moveValidator){
         switch (direction){
             case FORWARD, BACKWARD -> {
                 Vector2d toAdd = orientation.toUnitVector();
@@ -31,7 +28,7 @@ public class Animal {
                 }
 
                 Vector2d newPosition = position.add(toAdd);
-                if(newPosition.precedes(MAP_UPPER_RIGHT_CORNER) && newPosition.follows(MAP_LOWER_LEFT_CORNER)){
+                if(moveValidator.canMoveTo(newPosition)){
                     position = newPosition;
                 }
             }

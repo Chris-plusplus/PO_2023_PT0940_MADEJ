@@ -13,8 +13,17 @@ public enum MapDirection {
         unitVector = uV;
     }
 
+    @Override
     public String toString(){
         return stringRepresentation;
+    }
+    public String shortString() {
+        return switch (this){
+            case NORTH -> "^";
+            case EAST -> ">";
+            case SOUTH -> "v";
+            case WEST -> "<";
+        };
     }
     public MapDirection next(){
         return switch (this){
