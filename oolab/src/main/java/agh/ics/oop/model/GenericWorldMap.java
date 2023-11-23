@@ -1,10 +1,5 @@
 package agh.ics.oop.model;
 
-import agh.ics.oop.model.MoveDirection;
-import agh.ics.oop.model.Vector2d;
-
-import java.util.List;
-
 /**
  * The interface responsible for interacting with the map of the world.
  * Assumes that Vector2d and MoveDirection classes are defined.
@@ -12,7 +7,7 @@ import java.util.List;
  * @author apohllo, idzik
  */
 // template<class T, class P>
-public interface WorldMap extends MoveValidator<Vector2d> {
+public interface GenericWorldMap<T, P> extends MoveValidator<P> {
 
     /**
      * Place a animal on the map.
@@ -20,13 +15,13 @@ public interface WorldMap extends MoveValidator<Vector2d> {
      * @param animal The animal to place on the map.
      * @return True if the animal was placed. The animal cannot be placed if the move is not valid.
      */
-    boolean place(Animal obj);
+    boolean place(T obj);
 
     /**
      * Moves an animal (if it is present on the map) according to specified direction.
      * If the move is not possible, this method has no effect.
      */
-    void move(Animal obj, MoveDirection direction);
+    void move(T obj, MoveDirection direction);
 
     /**
      * Return true if given position on the map is occupied. Should not be
@@ -36,7 +31,7 @@ public interface WorldMap extends MoveValidator<Vector2d> {
      * @param position Position to check.
      * @return True if the position is occupied.
      */
-    boolean isOccupied(Vector2d position);
+    boolean isOccupied(P position);
 
     /**
      * Return an animal at a given position.
@@ -44,7 +39,5 @@ public interface WorldMap extends MoveValidator<Vector2d> {
      * @param position The position of the animal.
      * @return animal or null if the position is not occupied.
      */
-    WorldElement objectAt(Vector2d position);
-
-    List<WorldElement> getElements();
+    T objectAt(P position);
 }
