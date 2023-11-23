@@ -27,7 +27,7 @@ public class RandomPositionGenerator implements Iterable<Vector2d> {
     private final Set<Vector2d> positions = new HashSet<>();
 
     public RandomPositionGenerator(int maxWidth, int maxHeight, int grassCount){
-        this(maxWidth, maxHeight, grassCount, getSeed());
+        this(maxWidth, maxHeight, grassCount, new Random());
     }
 
     public RandomPositionGenerator(int maxWidth, int maxHeight, int grassCount, long seed){
@@ -36,13 +36,6 @@ public class RandomPositionGenerator implements Iterable<Vector2d> {
 
     private RandomPositionGenerator(int maxWidth, int maxHeight, int grassCount, Random random){
         generate(maxWidth, maxHeight, grassCount, random);
-    }
-
-    private static long getSeed(){
-        Random random = new Random();
-        long seed = random.nextLong();
-        //System.out.println(seed);
-        return seed;
     }
     
     // max liczba losowań 2n-1, n oryginalnych, n-1 poprawkowych
