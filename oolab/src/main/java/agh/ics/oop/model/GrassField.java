@@ -23,10 +23,11 @@ public class GrassField extends AbstractWorldMap {
         generateField(n, random);
     }
 
+    // zostawiam, może się przydać do przyszłych testów
     private static long getSeed(){
         Random random = new Random();
         long seed = random.nextLong();
-        System.out.println(seed);
+        //System.out.println(seed);
         return seed;
     }
     // max liczba losowań 2n-1, n oryginalnych, n-1 poprawkowych
@@ -156,18 +157,14 @@ public class GrassField extends AbstractWorldMap {
     }
 
     @Override
-    protected void onPlace(Animal placed) {
-        cachedDrawing = "";
+    protected void onPlace() {
+        super.onPlace();
         boundsNeedUpdate = true;
     }
     @Override
-    protected void onPositionChanged(Animal moved, Vector2d oldPosition) {
-       cachedDrawing = "";
+    protected void onPositionChanged() {
+       super.onPositionChanged();
        boundsNeedUpdate = true;
-    }
-    @Override
-    protected void onOrientationChanged(Animal moved, MapDirection oldOrientation) {
-        cachedDrawing = "";
     }
 
     @Override
