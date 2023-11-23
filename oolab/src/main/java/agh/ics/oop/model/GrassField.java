@@ -169,6 +169,8 @@ public class GrassField extends AbstractWorldMap {
 
     @Override
     public List<WorldElement> getElements() {
-        return Collections.<WorldElement>unmodifiableList(Stream.concat(super.getElements().stream(), grassMap.values().stream()).toList());
+        var elements = super.getElements();
+        elements.addAll(grassMap.values());
+        return elements;
     }
 }
