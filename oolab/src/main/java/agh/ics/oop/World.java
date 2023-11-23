@@ -13,12 +13,10 @@ public class World {
                 new Vector2d(2, 2),
                 new Vector2d(3, 4)
         );
-        //RectangularMap map = new RectangularMap(5, 5);
         GrassField map = new GrassField(10);
         Simulation simulation = new Simulation(positions, directions, map);
         simulation.run();
         // test ręczny wykazał poprawność
-        //System.out.println(map);
     }
     public static void run(MoveDirection[] commands){
         for(int i = 0; i != commands.length; ++i){

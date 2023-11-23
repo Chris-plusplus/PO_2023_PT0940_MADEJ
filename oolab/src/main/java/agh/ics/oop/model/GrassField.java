@@ -96,26 +96,31 @@ public class GrassField extends AbstractWorldMap {
     }
 
     private void updateBounds(){
-        int xMax = 0;
-        int xMin = Integer.MAX_VALUE;
-        int yMax = 0;
-        int yMin = Integer.MAX_VALUE;
+        lowerLeftCorner = null;
+        upperRightCorner = null;
 
         for (Animal animal : animalMap.values()){
-            xMax = Math.max(xMax, animal.getPosition().getX());
-            yMax = Math.max(yMax, animal.getPosition().getY());
-            xMin = Math.min(xMin, animal.getPosition().getX());
-            yMin = Math.min(yMin, animal.getPosition().getY());
+            if(lowerLeftCorner == null){ // implikuje upperRightCorner równe null
+                lowerLeftCorner = animal.getPosition();
+                upperRightCorner = animal.getPosition();
+            }
+            lowerLeftCorner = lowerLeftCorner.lowerLeft(animal.getPosition());
+            upperRightCorner = upperRightCorner.upperRight(animal.getPosition());
         }
         for (Grass grass : grassMap.values()){
-            xMax = Math.max(xMax, grass.getPosition().getX());
-            yMax = Math.max(yMax, grass.getPosition().getY());
-            xMin = Math.min(xMin, grass.getPosition().getX());
-            yMin = Math.min(yMin, grass.getPosition().getY());
+            if(lowerLeftCorner == null){ // implikuje upperRightCorner równe null
+                lowerLeftCorner = grass.getPosition();
+                upperRightCorner = grass.getPosition();
+            }
+            lowerLeftCorner = lowerLeftCorner.lowerLeft(grass.getPosition());
+            upperRightCorner = upperRightCorner.upperRight(grass.getPosition());
         }
 
-        lowerLeftCorner = new Vector2d(xMin, yMin);
-        upperRightCorner = new Vector2d(xMax, yMax);
+        if(lowerLeftCorner == null){ // implikuje upperRightCorner równe null
+            lowerLeftCorner = new Vector2d(0, 0);
+            upperRightCorner = new Vector2d(0, 0);
+        }
+
         boundsNeedUpdate = false;
     }
 
