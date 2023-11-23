@@ -75,6 +75,6 @@ public abstract class AbstractWorldMap implements WorldMap {
 
     @Override
     public List<WorldElement> getElements() {
-         return new ArrayList<>(animalMap.values());
+        return new ArrayList<>(animalMap.values());
     }
 }
