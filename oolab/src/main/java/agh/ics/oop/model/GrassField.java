@@ -11,7 +11,7 @@ public class GrassField extends AbstractWorldMap {
 
     // niedeterministyczny konstruktor
     public GrassField(int n){
-        this(n, getSeed());
+        this(n, new Random());
     }
 
     // deterministyczny konstruktor
@@ -23,13 +23,6 @@ public class GrassField extends AbstractWorldMap {
         generateField(n, random);
     }
 
-    // zostawiam, może się przydać do przyszłych testów
-    private static long getSeed(){
-        Random random = new Random();
-        long seed = random.nextLong();
-        //System.out.println(seed);
-        return seed;
-    }
     // max liczba losowań 2n-1, n oryginalnych, n-1 poprawkowych
     private void generateField(int n, Random random){
         int flooredBound = (int)Math.floor(Math.sqrt(10.0 * (double)n));
