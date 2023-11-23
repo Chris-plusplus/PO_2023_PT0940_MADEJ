@@ -68,7 +68,6 @@ public abstract class AbstractWorldMap implements WorldMap {
     @Override
     public String toString(){
         if(cachedDrawing.isEmpty()){
-            System.out.println("empty cache");
             cachedDrawing = mapVisualizer.draw(getLowerLeftCorner(), getUpperRightCorner());
         }
         return cachedDrawing;
