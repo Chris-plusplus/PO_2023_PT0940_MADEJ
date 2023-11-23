@@ -27,7 +27,7 @@ public abstract class AbstractWorldMap implements WorldMap {
     public boolean place(Animal animal){
         if(canMoveTo(animal.getPosition())){
             animalMap.put(animal.getPosition(), animal);
-            onPlace(animal);
+            onPlace();
             return true;
         }
         return false;
@@ -42,10 +42,10 @@ public abstract class AbstractWorldMap implements WorldMap {
                 animalMap.remove(oldPosition);
                 animalMap.put(animal.getPosition(), animal);
 
-                onPositionChanged(animal, oldPosition);
+                onPositionChanged();
             }
             else if(!Objects.equals(oldOrientation, animal.getOrientation())) {
-                onOrientationChanged(animal, oldOrientation);
+                onOrientationChanged();
             }
         }
     }
@@ -55,13 +55,20 @@ public abstract class AbstractWorldMap implements WorldMap {
 
     // event handlery, domyślnie puste, nie trzeba nadpisywac place() i move()
     // wywołują się tylko gdy zdarzenie faktycznie zajdzie
-    protected void onPlace(Animal placed){}
-    protected void onPositionChanged(Animal moved, Vector2d oldPosition){}
-    protected void onOrientationChanged(Animal moved, MapDirection oldOrientation){}
+    protected void onPlace(){
+        cachedDrawing = "";
+    }
+    protected void onPositionChanged(){
+        cachedDrawing = "";
+    }
+    protected void onOrientationChanged(){
+        cachedDrawing = "";
+    }
 
     @Override
     public String toString(){
         if(cachedDrawing.isEmpty()){
+            System.out.println("empty cache");
             cachedDrawing = mapVisualizer.draw(getLowerLeftCorner(), getUpperRightCorner());
         }
         return cachedDrawing;
