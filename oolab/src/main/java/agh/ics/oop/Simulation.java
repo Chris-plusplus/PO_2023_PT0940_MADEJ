@@ -16,17 +16,17 @@ public class Simulation {
         animals = new ArrayList<>();
         for(Vector2d startingPosition : startingPositions){
             Animal newAnimal = new Animal(startingPosition);
-            if (this.map.place(newAnimal)){
+            try{
+                this.map.place(newAnimal);
                 animals.add(newAnimal);
             }
+            catch (PositionAlreadyOccupiedException e){}
         }
     }
 
     public void run(){
-        System.out.println(map);
         for(int i = 0; i != moves.size(); ++i){
             map.move(animals.get(i % animals.size()), moves.get(i));
-            System.out.println(map);
         }
     }
 }
