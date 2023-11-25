@@ -11,7 +11,7 @@ public class AnimalTest {
 
         animal.move(MoveDirection.FORWARD, map); // 0, 4
 
-        Assertions.assertEquals(animal.getPosition().getY(), map.getUpperRightCorner().getY());
+        Assertions.assertEquals(animal.getPosition().getY(), map.getCurrentBounds().upperRightCorner().getY());
     }
     @Test
     public void lowerBoundaryTest(){
@@ -22,7 +22,7 @@ public class AnimalTest {
         animal.move(MoveDirection.RIGHT, map);
         animal.move(MoveDirection.FORWARD, map); // 0, 0
 
-        Assertions.assertEquals(animal.getPosition().getY(), map.getLowerLeftCorner().getY());
+        Assertions.assertEquals(animal.getPosition().getY(), map.getCurrentBounds().lowerLeftCorner().getY());
     }
     @Test
     public void leftBoundaryTest(){
@@ -32,7 +32,7 @@ public class AnimalTest {
         animal.move(MoveDirection.LEFT, map);
         animal.move(MoveDirection.FORWARD, map); // 0, 0
 
-        Assertions.assertEquals(animal.getPosition().getX(), map.getLowerLeftCorner().getX());
+        Assertions.assertEquals(animal.getPosition().getX(), map.getCurrentBounds().lowerLeftCorner().getX());
     }
     @Test
     public void rightBoundaryTest(){
@@ -42,7 +42,7 @@ public class AnimalTest {
         animal.move(MoveDirection.RIGHT, map);
         animal.move(MoveDirection.FORWARD, map); // 4, 0
 
-        Assertions.assertEquals(animal.getPosition().getX(), map.getUpperRightCorner().getX());
+        Assertions.assertEquals(animal.getPosition().getX(), map.getCurrentBounds().upperRightCorner().getX());
     }
 
     @Test
