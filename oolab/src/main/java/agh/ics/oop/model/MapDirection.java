@@ -1,10 +1,10 @@
 package agh.ics.oop.model;
 
 public enum MapDirection {
-    NORTH("Północ", new Vector2d(0, 1)),
-    EAST("Wschód", new Vector2d(1, 0)),
-    SOUTH("Południe", new Vector2d(0, -1)),
-    WEST("Zachód", new Vector2d(-1, 0));
+    NORTH("North", new Vector2d(0, 1)),
+    EAST("East", new Vector2d(1, 0)),
+    SOUTH("South", new Vector2d(0, -1)),
+    WEST("West", new Vector2d(-1, 0));
 
     private String stringRepresentation;
     private Vector2d unitVector;
