@@ -18,15 +18,21 @@ public class GrassFieldTest {
         Animal animal4 = new Animal(new Vector2d(1, 1));
         Animal animal5 = new Animal(new Vector2d(3 - 4 + 2, 3 - 2));
 
-        Assertions.assertTrue(grassField.place(animal1));
-        Assertions.assertFalse(grassField.place(animal2));
-        Assertions.assertTrue(grassField.place(animal3));
-        Assertions.assertTrue(grassField.place(animal4));
-        Assertions.assertFalse(grassField.place(animal5));
+        Assertions.assertDoesNotThrow(() -> {
+            grassField.place(animal1);
+            grassField.place(animal3);
+            grassField.place(animal4);
+        });
+        Assertions.assertThrows(PositionAlreadyOccupiedException.class, () -> {
+            grassField.place(animal2);
+        });
+        Assertions.assertThrows(PositionAlreadyOccupiedException.class, () -> {
+            grassField.place(animal5);
+        });
 
         int animalCounter = 0;
-        for(int x = grassField.getLowerLeftCorner().getX(); x <= grassField.getUpperRightCorner().getX(); ++x){
-            for(int y = grassField.getLowerLeftCorner().getY(); y <= grassField.getUpperRightCorner().getY(); ++y){
+        for(int x = grassField.getCurrentBounds().lowerLeftCorner().getX(); x <= grassField.getCurrentBounds().upperRightCorner().getX(); ++x){
+            for(int y = grassField.getCurrentBounds().lowerLeftCorner().getY(); y <= grassField.getCurrentBounds().upperRightCorner().getY(); ++y){
                 WorldElement animal = grassField.objectAt(new Vector2d(x, y));
                 if (animal != null && animal.getClass() == Animal.class){
                     ++animalCounter;
@@ -76,13 +82,15 @@ public class GrassFieldTest {
         Animal animal2 = new Animal(new Vector2d(6, 4)); // na trawie
         Animal animal3 = new Animal(new Vector2d(32, -12));
 
-        Assertions.assertTrue(grassField.place(animal1));
-        Assertions.assertTrue(grassField.place(animal2));
-        Assertions.assertTrue(grassField.place(animal3));
+        Assertions.assertDoesNotThrow(() -> {
+            grassField.place(animal1);
+            grassField.place(animal2);
+            grassField.place(animal3);
+        });
 
         int occupationCounter = 0;
-        for(int x = grassField.getLowerLeftCorner().getX(); x <= grassField.getUpperRightCorner().getX(); ++x){
-            for(int y = grassField.getLowerLeftCorner().getY(); y <= grassField.getUpperRightCorner().getY(); ++y){
+        for(int x = grassField.getCurrentBounds().lowerLeftCorner().getX(); x <= grassField.getCurrentBounds().upperRightCorner().getX(); ++x){
+            for(int y = grassField.getCurrentBounds().lowerLeftCorner().getY(); y <= grassField.getCurrentBounds().upperRightCorner().getY(); ++y){
                 if (grassField.isOccupied(new Vector2d(x, y))){
                     ++occupationCounter;
                 }
@@ -120,11 +128,13 @@ public class GrassFieldTest {
 
         Vector2d miejsceSpotkania = new Vector2d(2, 3);
 
-        Assertions.assertTrue(grassField.place(jubilat));
-        Assertions.assertTrue(grassField.place(rodzina1));
-        Assertions.assertTrue(grassField.place(rodzina2));
-        Assertions.assertTrue(grassField.place(rodzina3));
-        Assertions.assertTrue(grassField.place(rodzina4));
+        Assertions.assertDoesNotThrow(() -> {
+            grassField.place(jubilat);
+            grassField.place(rodzina1);
+            grassField.place(rodzina2);
+            grassField.place(rodzina3);
+            grassField.place(rodzina4);
+        });
 
         while (jubilat.getPosition().getY() != miejsceSpotkania.getY()){
             grassField.move(jubilat, MoveDirection.FORWARD);
