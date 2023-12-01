@@ -54,11 +54,11 @@ public class SimulationEngine {
 
         threadPool.shutdown();
         try{
-            threadPool.awaitTermination(10, TimeUnit.SECONDS);
-            threadPool.shutdownNow();
-
-            // czeka na niedobitki z threadPool, średnio kilka milisekund
-            while (!threadPool.isTerminated()) {}
+            if(!threadPool.awaitTermination(10, TimeUnit.SECONDS)){
+                threadPool.shutdownNow();
+                // czeka na niedobitki z threadPool, średnio kilka milisekund
+                while (!threadPool.isTerminated()) {}
+            }
         }
         // można zignorować, raczej nic nie przerwie głównego wątku
         catch (InterruptedException ignored){}
