@@ -3,7 +3,9 @@ package agh.ics.oop;
 import agh.ics.oop.model.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public class World {
     public static void main(String[] args){
@@ -13,11 +15,31 @@ public class World {
                     new Vector2d(2, 2),
                     new Vector2d(3, 4)
             );
-            GrassField map = new GrassField(10);
+
             ConsoleMapDisplay consoleMapDisplay = new ConsoleMapDisplay();
-            map.addListener(consoleMapDisplay);
-            Simulation simulation = new Simulation(positions, directions, map);
-            simulation.run();
+
+            List<Simulation> simulations = new ArrayList<>();
+            Random random = new Random();
+            if(random.nextBoolean()){ // generujemy trawki
+                for(int i = 0; i != 10000; ++i){ // jeśli nie przekroczy 10s, na koniec wypisze 'Update no. 160000', 16 ruchów * n
+                    AbstractWorldMap newMap = new GrassField(10);
+                    newMap.addListener(consoleMapDisplay);
+                    simulations.add(new Simulation(positions, directions, newMap));
+                }
+            }
+            else{ // kwadraty
+                for(int i = 0; i != 10000; ++i){ // jeśli nie przekroczy 10s, na koniec wypisze 'Update no. 120000', 12 ruchów * n
+                    AbstractWorldMap newMap = new RectangularMap(5, 5);
+                    newMap.addListener(consoleMapDisplay);
+                    simulations.add(new Simulation(positions, directions, newMap));
+                }
+            }
+
+            SimulationEngine simEngine = new SimulationEngine(simulations);
+            simEngine.runAsyncInThreadPool();
+            simEngine.awaitSimulationsEnd();
+
+            System.out.println("System has terminated.");
         }
         catch (IllegalArgumentException e){
             System.out.println(e);
