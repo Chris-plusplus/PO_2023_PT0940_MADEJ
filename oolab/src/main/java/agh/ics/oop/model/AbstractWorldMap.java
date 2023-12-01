@@ -7,7 +7,7 @@ import java.util.*;
 
 public abstract class AbstractWorldMap implements WorldMap {
     protected final Map<Vector2d, Animal> animalMap = new HashMap<>();
-    protected final MapVisualizer mapVisualizer = new MapVisualizer(this);
+    private final MapVisualizer mapVisualizer = new MapVisualizer(this);
     protected String cachedDrawing = "";
     protected List<MapChangeListener> mapChangeListeners = new ArrayList<>();
     public static final String ANIMAL_MOVED_PREFIX = "Animal moved";
@@ -74,7 +74,8 @@ public abstract class AbstractWorldMap implements WorldMap {
     @Override
     public String toString(){
         if(cachedDrawing.isEmpty()){
-            cachedDrawing = mapVisualizer.draw(getCurrentBounds().lowerLeftCorner(), getCurrentBounds().upperRightCorner());
+            Boundary bounds = getCurrentBounds();
+            cachedDrawing = mapVisualizer.draw(bounds.lowerLeftCorner(), bounds.upperRightCorner());
         }
         return cachedDrawing;
     }

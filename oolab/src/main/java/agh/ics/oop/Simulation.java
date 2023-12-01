@@ -20,7 +20,8 @@ public class Simulation {
                 this.map.place(newAnimal);
                 animals.add(newAnimal);
             }
-            catch (PositionAlreadyOccupiedException e){}
+            // polecenie 4. każe tylko pominąć zwierzeta z niepoprawnymi position
+            catch (PositionAlreadyOccupiedException ignoredException){}
         }
     }
 
