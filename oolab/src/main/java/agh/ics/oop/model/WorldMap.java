@@ -2,6 +2,7 @@ package agh.ics.oop.model;
 
 import agh.ics.oop.model.MoveDirection;
 import agh.ics.oop.model.Vector2d;
+import agh.ics.oop.model.util.Boundary;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public interface WorldMap extends MoveValidator<Vector2d> {
      * @param animal The animal to place on the map.
      * @return True if the animal was placed. The animal cannot be placed if the move is not valid.
      */
-    boolean place(Animal obj);
+    void place(Animal obj) throws PositionAlreadyOccupiedException;
 
     /**
      * Moves an animal (if it is present on the map) according to specified direction.
@@ -47,4 +48,6 @@ public interface WorldMap extends MoveValidator<Vector2d> {
     WorldElement objectAt(Vector2d position);
 
     List<WorldElement> getElements();
+
+    Boundary getCurrentBounds();
 }

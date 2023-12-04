@@ -1,13 +1,18 @@
 package agh.ics.oop.model;
 
+import agh.ics.oop.model.util.Boundary;
 import agh.ics.oop.model.util.MapVisualizer;
 
 import java.util.*;
 
 public abstract class AbstractWorldMap implements WorldMap {
     protected final Map<Vector2d, Animal> animalMap = new HashMap<>();
-    protected final MapVisualizer mapVisualizer = new MapVisualizer(this);
+    private final MapVisualizer mapVisualizer = new MapVisualizer(this);
     protected String cachedDrawing = "";
+    protected List<MapChangeListener> mapChangeListeners = new ArrayList<>();
+    public static final String ANIMAL_MOVED_PREFIX = "Animal moved";
+    public static final String ANIMAL_ROTATED_PREFIX = "Animal rotated";
+    public static final String ANIMAL_PLACED_PREFIX = "Animal placed";
 
     @Override
     public WorldElement objectAt(Vector2d position){
@@ -24,13 +29,14 @@ public abstract class AbstractWorldMap implements WorldMap {
     }
 
     @Override
-    public boolean place(Animal animal){
+    public void place(Animal animal) throws PositionAlreadyOccupiedException{
         if(canMoveTo(animal.getPosition())){
             animalMap.put(animal.getPosition(), animal);
-            onPlace();
-            return true;
+            mapChanged(ANIMAL_PLACED_PREFIX + " at " + animal.getPosition());
         }
-        return false;
+        else {
+            throw new PositionAlreadyOccupiedException(animal.getPosition());
+        }
     }
     @Override
     public void move(Animal animal, MoveDirection moveDirection) {
@@ -42,33 +48,34 @@ public abstract class AbstractWorldMap implements WorldMap {
                 animalMap.remove(oldPosition);
                 animalMap.put(animal.getPosition(), animal);
 
-                onPositionChanged();
+                mapChanged(ANIMAL_MOVED_PREFIX + " " + moveDirection + "; " + oldPosition + " -> " + animal.getPosition());
             }
             else if(!Objects.equals(oldOrientation, animal.getOrientation())) {
-                onOrientationChanged();
+                mapChanged(ANIMAL_ROTATED_PREFIX + " " + moveDirection + "; " + oldOrientation + " -> " + animal.getOrientation());
             }
         }
     }
 
-    public abstract Vector2d getLowerLeftCorner();
-    public abstract Vector2d getUpperRightCorner();
+    public void addListener(MapChangeListener listener){
+        mapChangeListeners.add(listener);
+    }
+    public void removeListener(MapChangeListener listener){
+        mapChangeListeners.remove(listener);
+    }
 
-    // event handlery, domyślnie puste, nie trzeba nadpisywac place() i move()
-    // wywołują się tylko gdy zdarzenie faktycznie zajdzie
-    protected void onPlace(){
+    protected void mapChanged(String message){
         cachedDrawing = "";
-    }
-    protected void onPositionChanged(){
-        cachedDrawing = "";
-    }
-    protected void onOrientationChanged(){
-        cachedDrawing = "";
+
+        for(MapChangeListener listener : mapChangeListeners){
+            listener.mapChanged(this, message);
+        }
     }
 
     @Override
     public String toString(){
         if(cachedDrawing.isEmpty()){
-            cachedDrawing = mapVisualizer.draw(getLowerLeftCorner(), getUpperRightCorner());
+            Boundary bounds = getCurrentBounds();
+            cachedDrawing = mapVisualizer.draw(bounds.lowerLeftCorner(), bounds.upperRightCorner());
         }
         return cachedDrawing;
     }

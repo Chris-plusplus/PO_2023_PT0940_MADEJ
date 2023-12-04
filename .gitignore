@@ -192,3 +192,8 @@ oolab/build/tmp/compileJava/compileTransaction/stash-dir/RandomPositionGenerator
 oolab/build/tmp/compileJava/compileTransaction/stash-dir/AbstractWorldMap.class.uniqueId1
 oolab/build/tmp/compileJava/compileTransaction/stash-dir/GrassField.class.uniqueId2
 oolab/build/tmp/compileJava/compileTransaction/stash-dir/RectangularMap.class.uniqueId4
+oolab/build/classes/java/main/agh/ics/oop/model/PositionAlreadyOccupiedException.class
+oolab/build/classes/java/main/agh/ics/oop/model/util/Boundary.class
+oolab/build/classes/java/main/agh/ics/oop/model/ConsoleMapDisplay.class
+oolab/build/tmp/compileJava/compileTransaction/stash-dir/ConsoleMapDisplay.class.uniqueId0
+oolab/build/classes/java/main/agh/ics/oop/model/MapChangeListener.class

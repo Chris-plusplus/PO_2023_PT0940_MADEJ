@@ -1,5 +1,6 @@
 package agh.ics.oop.model;
 
+import agh.ics.oop.model.util.Boundary;
 import agh.ics.oop.model.util.RandomPositionGenerator;
 
 import java.util.*;
@@ -7,8 +8,7 @@ import java.util.stream.Stream;
 
 public class GrassField extends AbstractWorldMap {
     private final Map<Vector2d, Grass> grassMap = new HashMap<>();
-    private Vector2d upperRightCorner;
-    private Vector2d lowerLeftCorner;
+    private Boundary boundary;
     private boolean boundsNeedUpdate = true;
 
     // niedeterministyczny konstruktor
@@ -38,8 +38,8 @@ public class GrassField extends AbstractWorldMap {
     }
 
     private void updateBounds(){
-        lowerLeftCorner = null;
-        upperRightCorner = null;
+        Vector2d lowerLeftCorner = null;
+        Vector2d upperRightCorner = null;
 
         for (Animal animal : animalMap.values()){
             if(lowerLeftCorner == null){ // implikuje upperRightCorner równe null
@@ -63,6 +63,8 @@ public class GrassField extends AbstractWorldMap {
             upperRightCorner = new Vector2d(0, 0);
         }
 
+        boundary = new Boundary(lowerLeftCorner, upperRightCorner);
+
         boundsNeedUpdate = false;
     }
 
@@ -81,30 +83,12 @@ public class GrassField extends AbstractWorldMap {
     }
 
     @Override
-    public Vector2d getUpperRightCorner() {
-        if(boundsNeedUpdate){
-            updateBounds();
+    protected void mapChanged(String message){
+        if(message.startsWith(ANIMAL_PLACED_PREFIX) || message.startsWith(ANIMAL_MOVED_PREFIX)){
+            boundsNeedUpdate = true;
         }
-        return upperRightCorner;
-    }
 
-    @Override
-    public Vector2d getLowerLeftCorner() {
-        if(boundsNeedUpdate){
-            updateBounds();
-        }
-        return lowerLeftCorner;
-    }
-
-    @Override
-    protected void onPlace() {
-        super.onPlace();
-        boundsNeedUpdate = true;
-    }
-    @Override
-    protected void onPositionChanged() {
-       super.onPositionChanged();
-       boundsNeedUpdate = true;
+        super.mapChanged(message);
     }
 
     @Override
@@ -112,5 +96,13 @@ public class GrassField extends AbstractWorldMap {
         var elements = super.getElements();
         elements.addAll(grassMap.values());
         return elements;
+    }
+
+    @Override
+    public Boundary getCurrentBounds() {
+        if(boundsNeedUpdate){
+            updateBounds();
+        }
+        return boundary;
     }
 }
