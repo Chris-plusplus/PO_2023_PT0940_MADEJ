@@ -3,7 +3,7 @@ package agh.ics.oop.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TextMap implements WorldMap<String, Integer>{
+public class TextMap implements GenericWorldMap<String, Integer>{
     private final List<String> container = new ArrayList<>();
     private final List<MapDirection> orientations = new ArrayList<>();
 
@@ -36,24 +36,24 @@ public class TextMap implements WorldMap<String, Integer>{
 
     @Override
     public void move(String obj, MoveDirection direction) {
-        int myIdx = container.indexOf(obj);
-        if(myIdx != -1){
+        int oldIndex = container.indexOf(obj);
+        if(oldIndex != -1){
             switch (direction){
-                case RIGHT -> orientations.set(myIdx, orientations.get(myIdx).next());
-                case LEFT -> orientations.set(myIdx, orientations.get(myIdx).previous());
+                case RIGHT -> orientations.set(oldIndex, orientations.get(oldIndex).next());
+                case LEFT -> orientations.set(oldIndex, orientations.get(oldIndex).previous());
                 case FORWARD, BACKWARD -> {
-                    if(orientations.get(myIdx) == MapDirection.EAST || orientations.get(myIdx) == MapDirection.WEST){
-                        int di = orientations.get(myIdx).toUnitVector().getX();
+                    if(orientations.get(oldIndex) == MapDirection.EAST || orientations.get(oldIndex) == MapDirection.WEST){
+                        int deltaIndex = orientations.get(oldIndex).toUnitVector().getX();
                         if (direction == MoveDirection.BACKWARD){
-                            di = -di;
+                            deltaIndex = -deltaIndex;
                         }
 
-                        int newIdx = myIdx + di;
+                        int newIdx = oldIndex + deltaIndex;
                         if(canMoveTo(newIdx)){
                             MapDirection temp = orientations.get(newIdx);
-                            orientations.set(newIdx, orientations.get(myIdx));
-                            orientations.set(myIdx, temp);
-                            container.set(myIdx, container.get(newIdx));
+                            orientations.set(newIdx, orientations.get(oldIndex));
+                            orientations.set(oldIndex, temp);
+                            container.set(oldIndex, container.get(newIdx));
                             container.set(newIdx, obj);
                         }
                     }
