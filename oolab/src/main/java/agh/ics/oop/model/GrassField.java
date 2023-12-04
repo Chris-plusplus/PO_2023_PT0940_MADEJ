@@ -1,5 +1,7 @@
 package agh.ics.oop.model;
 
+import agh.ics.oop.model.util.RandomPositionGenerator;
+
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -11,88 +13,28 @@ public class GrassField extends AbstractWorldMap {
 
     // niedeterministyczny konstruktor
     public GrassField(int n){
-        this(n, new Random());
+        generateField(n, null);
     }
 
     // deterministyczny konstruktor
-    public GrassField(int n, long seed){
-        this(n, new Random(seed));
+    public GrassField(int n, long seed) {
+        generateField(n, seed);
     }
 
-    private GrassField(int n, Random random){
-        generateField(n, random);
-    }
-
-    // max liczba losowań 2n-1, n oryginalnych, n-1 poprawkowych
-    private void generateField(int n, Random random){
+    private void generateField(int n, Long seed){
         int flooredBound = (int)Math.floor(Math.sqrt(10.0 * (double)n));
 
-        for(int i = 0; i != n; ++i){
-            int x = random.nextInt(flooredBound + 1);
-            int y = random.nextInt(flooredBound + 1);
-            Vector2d pos = new Vector2d(x, y);
-            if(grassMap.containsKey(pos)){
-                pos = findNearestEmpty(pos, flooredBound + 1, flooredBound + 1, random);
-            }
-            Grass g = new Grass(pos);
-            grassMap.put(pos, g);
+        RandomPositionGenerator randomPositionGenerator;
+        if(seed == null){
+            randomPositionGenerator = new RandomPositionGenerator(flooredBound, flooredBound, n);
         }
-    }
-    // znajduje wolne pozycje na kolejnych obwodach kwadratów (2n+1)X(2n+1) o środku pos
-    // i wybiera losowo jedną z nich
-    // nie sprawdza dalszych kwadratów, jeśli znaleziono pozycje na ostatnim
-    // kwadraty są ograniczone w osi X [0, xBound) i osi Y [0, yBound)
-    private Vector2d findNearestEmpty(Vector2d pos, int xBound, int yBound, Random random){
-        int _x = pos.getX();
-        int _y = pos.getY();
-        for(int d = 1; d != Math.max(xBound, yBound) ; ++d){
-            List<Vector2d> found = new ArrayList<>();
-            int xBegin = _x - d;
-            int yBegin = _y - d;
-            int xEnd = _x + d;
-            int yEnd = _y + d;
-
-            // [xBegin, xEnd]
-            // [yBegin, yEnd]
-
-            for(int x = Math.max(0, xBegin); x <= xEnd && x < xBound; ++x) {
-                if(yBegin >= 0){
-                    Vector2d v = new Vector2d(x, yBegin);
-                    if (!grassMap.containsKey(v)){
-                        found.add(v);
-                        //return v;
-                    }
-                }
-                if(yEnd < yBound){
-                    Vector2d v = new Vector2d(x, yEnd);
-                    if(!grassMap.containsKey(v)){
-                        //return v;
-                        found.add(v);
-                    }
-                }
-            }
-            for(int y = Math.max(0, yBegin); y <= yEnd && y < yBound; ++y) {
-                if(xBegin >= 0){
-                    Vector2d v = new Vector2d(xBegin, y);
-                    if (!grassMap.containsKey(v)){
-                        //return v;
-                        found.add(v);
-                    }
-                }
-                if(xEnd < xBound){
-                    Vector2d v = new Vector2d(xEnd, y);
-                    if(!grassMap.containsKey(v)){
-                        //return v;
-                        found.add(v);
-                    }
-                }
-            }
-            if(!found.isEmpty()){
-                return found.get(random.nextInt(found.size()));
-            }
+        else{
+            randomPositionGenerator = new RandomPositionGenerator(flooredBound, flooredBound, n, seed);
         }
-        // sytuacja niemożliwa, ale kompilator się czepiał
-        return null;
+
+        for(Vector2d pos : randomPositionGenerator){
+            grassMap.put(pos, new Grass(pos));
+        }
     }
 
     private void updateBounds(){
