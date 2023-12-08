@@ -13,6 +13,8 @@ public abstract class AbstractWorldMap implements WorldMap {
     public static final String ANIMAL_MOVED_PREFIX = "Animal moved";
     public static final String ANIMAL_ROTATED_PREFIX = "Animal rotated";
     public static final String ANIMAL_PLACED_PREFIX = "Animal placed";
+    // nie trzeba dodawać do konstruktora
+    private final UUID uuid = UUID.randomUUID();
 
     @Override
     public WorldElement objectAt(Vector2d position){
@@ -78,6 +80,11 @@ public abstract class AbstractWorldMap implements WorldMap {
             cachedDrawing = mapVisualizer.draw(bounds.lowerLeftCorner(), bounds.upperRightCorner());
         }
         return cachedDrawing;
+    }
+
+    @Override
+    public UUID getID() {
+        return uuid;
     }
 
     @Override

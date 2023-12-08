@@ -4,8 +4,9 @@ import agh.ics.oop.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
 
-public class Simulation {
+public class Simulation implements Runnable{
     private final List<Animal> animals;
     private final List<MoveDirection> moves;
     private final WorldMap map;
@@ -21,12 +22,16 @@ public class Simulation {
                 animals.add(newAnimal);
             }
             // polecenie 4. każe tylko pominąć zwierzeta z niepoprawnymi position
-            catch (PositionAlreadyOccupiedException ignoredException){}
+            catch (PositionAlreadyOccupiedException ignored){}
         }
     }
 
+    @Override
     public void run(){
-        for(int i = 0; i != moves.size(); ++i){
+        for (int i = 0; i != moves.size(); ++i) {
+            if(Thread.currentThread().isInterrupted()){
+                return;
+            }
             map.move(animals.get(i % animals.size()), moves.get(i));
         }
     }

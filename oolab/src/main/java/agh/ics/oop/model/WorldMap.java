@@ -5,6 +5,7 @@ import agh.ics.oop.model.Vector2d;
 import agh.ics.oop.model.util.Boundary;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * The interface responsible for interacting with the map of the world.
@@ -50,4 +51,6 @@ public interface WorldMap extends MoveValidator<Vector2d> {
     List<WorldElement> getElements();
 
     Boundary getCurrentBounds();
+
+    UUID getID();
 }
