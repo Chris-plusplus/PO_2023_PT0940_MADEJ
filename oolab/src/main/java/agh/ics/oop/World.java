@@ -3,7 +3,6 @@ package agh.ics.oop;
 import agh.ics.oop.model.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -41,8 +40,8 @@ public class World {
 
             System.out.println("System has terminated.");
         }
-        catch (IllegalArgumentException e){
-            System.out.println(e);
+        catch (IllegalArgumentException | InterruptedException exception){
+            System.out.println(exception);
         }
         // test ręczny wykazał poprawność
     }
