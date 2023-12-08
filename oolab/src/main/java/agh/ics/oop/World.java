@@ -37,13 +37,13 @@ public class World {
             SimulationEngine simEngine = new SimulationEngine(simulations);
             simEngine.runAsyncInThreadPool();
             simEngine.awaitSimulationsEnd();
-
-            System.out.println("System has terminated.");
         }
         catch (IllegalArgumentException | InterruptedException exception){
             System.out.println(exception);
         }
         // test ręczny wykazał poprawność
+
+        System.out.println("System has terminated.");
     }
     public static void run(MoveDirection[] commands){
         for(int i = 0; i != commands.length; ++i){
