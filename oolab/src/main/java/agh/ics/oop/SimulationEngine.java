@@ -45,8 +45,7 @@ public class SimulationEngine {
         threadPool.shutdown();
         if(!threadPool.awaitTermination(10, TimeUnit.SECONDS)){
             threadPool.shutdownNow();
-            // czeka na niedobitki z threadPool, średnio kilka milisekund
-            while (!threadPool.isTerminated()) {}
+            threadPool.awaitTermination(1, TimeUnit.SECONDS);
         }
     }
 }
