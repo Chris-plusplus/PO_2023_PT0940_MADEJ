@@ -28,11 +28,19 @@ public class Simulation implements Runnable{
 
     @Override
     public void run(){
-        for (int i = 0; i != moves.size(); ++i) {
-            if(Thread.currentThread().isInterrupted()){
-                return;
+        try{
+            for (int i = 0; i != moves.size(); ++i) {
+                if(Thread.currentThread().isInterrupted()){
+                    return;
+                }
+                map.move(animals.get(i % animals.size()), moves.get(i));
+                if(i != moves.size() - 1){
+                    Thread.sleep(500);
+                }
             }
-            map.move(animals.get(i % animals.size()), moves.get(i));
+        }
+        catch (InterruptedException exception){
+            System.out.println(exception);
         }
     }
 }
