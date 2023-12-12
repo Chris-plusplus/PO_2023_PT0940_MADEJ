@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import java.net.URL?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="agh.ics.oop.presenter.MainMenu"
+            prefHeight="50.0" prefWidth="500.0" minWidth="500.0" minHeight="50.0">
+    <stylesheets>
+        <URL value="@styles.css"/>
+    </stylesheets>
+    <center>
+        <VBox>
+            <Label fx:id="errorDescription" textAlignment="CENTER" text="Move description will be written here!" styleClass="sharedFont, centered" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+            <HBox>
+                <TextField fx:id="movesInput" styleClass="sharedFont" HBox.hgrow="ALWAYS" text="f b r l f f r r f f f f f f f f" prefHeight="Infinity"/>
+                <Button fx:id="startButton" onAction="#onStartButtonClicked" styleClass="sharedFont, button" HBox.hgrow="NEVER" text="Start" prefHeight="Infinity"/>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>
