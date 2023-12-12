@@ -4,6 +4,7 @@ import agh.ics.oop.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.Callable;
 
 public class Simulation implements Runnable{
@@ -42,5 +43,9 @@ public class Simulation implements Runnable{
         catch (InterruptedException exception){
             System.out.println(exception);
         }
+    }
+
+    public UUID getUUID(){
+        return map.getID();
     }
 }
