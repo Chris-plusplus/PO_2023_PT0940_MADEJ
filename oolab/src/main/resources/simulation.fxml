@@ -2,16 +2,13 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.control.Button?>
 <?import java.net.URL?>
 <?import javafx.scene.layout.GridPane?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            minHeight="700.0" minWidth="1000.0"
+            minHeight="500.0" minWidth="750.0"
             fx:controller="agh.ics.oop.presenter.SimulationPresenter">
     <stylesheets>
         <URL value="@styles.css"/>
@@ -25,10 +22,6 @@
     <bottom>
         <VBox>
             <Label fx:id="moveDescription" textAlignment="CENTER" text="Move description will be written here!" styleClass="sharedFont, centered" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
-            <HBox>
-                <TextField fx:id="movesInput" styleClass="sharedFont" HBox.hgrow="ALWAYS" text="f b r l f f r r f f f f f f f f"/>
-                <Button fx:id="startButton" styleClass="sharedFont, button" HBox.hgrow="NEVER" text="Start" onAction="#onSimulationStartClicked"/>
-            </HBox>
         </VBox>
     </bottom>
 </BorderPane>

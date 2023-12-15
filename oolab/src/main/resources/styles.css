@@ -5,12 +5,12 @@
 
 .gridFont {
     -fx-font-family: Consolas;
-    -fx-font-size: 16px;
+    -fx-font-size: 12px;
 }
 
 .axis{
     -fx-font-family: Consolas;
-    -fx-font-size: 14px;
+    -fx-font-size: 10px;
 }
 
 .centered{
@@ -27,7 +27,7 @@
 }
 
 .worldElement{
-    -fx-font-size: 25px;
+    -fx-font-size: 20px;
 }
 
 .animal{

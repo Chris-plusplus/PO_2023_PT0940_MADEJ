@@ -1,9 +1,6 @@
 package agh.ics.oop;
 
-import agh.ics.oop.model.GrassField;
-import agh.ics.oop.model.MoveDirection;
-import agh.ics.oop.model.Vector2d;
-import agh.ics.oop.presenter.SimulationPresenter;
+import agh.ics.oop.presenter.MainMenu;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,25 +8,29 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.List;
 
 public class SimulationApp extends Application {
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getClassLoader().getResource("simulation.fxml"));
+        loader.setLocation(getClass().getClassLoader().getResource("mainMenu.fxml"));
         BorderPane viewRoot = null;
         viewRoot = loader.load();
-        SimulationPresenter presenter = loader.getController();
+        MainMenu mainMenu = loader.getController();
 
-        configureStage(primaryStage, viewRoot);
+        configureMainMenu(primaryStage, viewRoot);
+        primaryStage.setOnCloseRequest(event -> {
+            event.consume();
+            primaryStage.close();
+            //System.out.println("Main menu was closed.");
+        });
 
         primaryStage.show();
     }
 
-    private void configureStage(Stage primaryStage, BorderPane viewRoot) {
+    private void configureMainMenu(Stage primaryStage, BorderPane viewRoot) {
         var scene = new Scene(viewRoot);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Simulation app");
+        primaryStage.setTitle("Simulation app main menu");
         primaryStage.minWidthProperty().bind(viewRoot.minWidthProperty());
         primaryStage.minHeightProperty().bind(viewRoot.minHeightProperty());
     }

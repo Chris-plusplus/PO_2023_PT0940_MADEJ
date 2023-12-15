@@ -35,7 +35,7 @@ public class SimulationPresenter implements MapChangeListener {
     @FXML
     private Button startButton;
     private WorldMap worldMap;
-    private final static double CELL_SIZE = 35;
+    private final static double CELL_SIZE = 25;
 
     public void setWorldMap(WorldMap worldMap) {
         this.worldMap = worldMap;
@@ -127,7 +127,6 @@ public class SimulationPresenter implements MapChangeListener {
         moveDescription.getStyleClass().remove("errorText");
 
         GrassField grassField = new GrassField(10);
-        System.out.println(grassField.getElements().size());
         List<Vector2d> positions = List.of(
                 new Vector2d(2, 2),
                 new Vector2d(3, 4)
