@@ -29,16 +29,11 @@ public class MainMenu {
     private final SimulationController simulationController = new SimulationController();
     private final Map<Stage, NotifyingSimulation> simulations = new HashMap<>();
 
-    public void onStartButtonClicked(){
+    public void onStartButtonClicked() throws IOException{
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getClassLoader().getResource("simulation.fxml"));
         BorderPane viewRoot = null;
-        try{
-            viewRoot = loader.load();
-        }
-        catch (IOException exception){
-            System.out.println(exception);
-        }
+        viewRoot = loader.load();
 
         SimulationPresenter presenter = loader.getController();
 

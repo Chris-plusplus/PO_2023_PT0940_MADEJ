@@ -14,12 +14,7 @@ public class SimulationApp extends Application {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getClassLoader().getResource("mainMenu.fxml"));
         BorderPane viewRoot = null;
-        try{
-            viewRoot = loader.load();
-        }
-        catch (IOException exception){
-            throw new RuntimeException(exception);
-        }
+        viewRoot = loader.load();
         MainMenu mainMenu = loader.getController();
 
         configureMainMenu(primaryStage, viewRoot);
