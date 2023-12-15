@@ -4,6 +4,7 @@ import agh.ics.oop.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.Callable;
 
 public class Simulation implements Runnable{
@@ -28,11 +29,23 @@ public class Simulation implements Runnable{
 
     @Override
     public void run(){
-        for (int i = 0; i != moves.size(); ++i) {
-            if(Thread.currentThread().isInterrupted()){
-                return;
+        try{
+            for (int i = 0; i != moves.size(); ++i) {
+                if(Thread.currentThread().isInterrupted()){
+                    return;
+                }
+                map.move(animals.get(i % animals.size()), moves.get(i));
+                if(i != moves.size() - 1){
+                    Thread.sleep(500);
+                }
             }
-            map.move(animals.get(i % animals.size()), moves.get(i));
         }
+        catch (InterruptedException exception){
+            System.out.println(exception);
+        }
+    }
+
+    public UUID getUUID(){
+        return map.getID();
     }
 }

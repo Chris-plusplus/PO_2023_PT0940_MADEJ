@@ -1,0 +1,39 @@
+.sharedFont {
+    -fx-font-family: Consolas;
+    -fx-font-size: 20px;
+}
+
+.gridFont {
+    -fx-font-family: Consolas;
+    -fx-font-size: 12px;
+}
+
+.axis{
+    -fx-font-family: Consolas;
+    -fx-font-size: 10px;
+}
+
+.centered{
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+}
+
+.button {
+    -fx-pref-width: 100px;
+}
+
+.errorText{
+    -fx-text-fill: #af0000;
+}
+
+.worldElement{
+    -fx-font-size: 20px;
+}
+
+.animal{
+    -fx-text-fill: #7f3f00;
+}
+
+.grass{
+    -fx-text-fill: #00bf00;
+}
