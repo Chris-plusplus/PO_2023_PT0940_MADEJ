@@ -1,5 +1,6 @@
 package agh.ics.oop.model;
 
+import agh.ics.oop.presenter.WorldElementBox;
 import javafx.scene.image.Image;
 
 import java.util.Objects;

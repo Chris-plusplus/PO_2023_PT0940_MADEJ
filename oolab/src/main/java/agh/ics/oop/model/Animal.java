@@ -1,8 +1,8 @@
 package agh.ics.oop.model;
 
+import agh.ics.oop.presenter.WorldElementBox;
 import javafx.scene.image.Image;
 
-import java.util.Comparator;
 import java.util.Objects;
 
 public class Animal implements WorldElement {
