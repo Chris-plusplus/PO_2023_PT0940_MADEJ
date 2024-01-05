@@ -1,13 +1,29 @@
 package agh.ics.oop.model;
 
+import javafx.scene.image.Image;
+
+import java.util.Comparator;
 import java.util.Objects;
 
 public class Animal implements WorldElement {
     private MapDirection orientation = MapDirection.NORTH;
     private Vector2d position;
+    private WorldElementBox box;
+
+    private static final Image textureUp = new Image(Animal.class.getResourceAsStream("/textures/up.png"));
+    private static final Image textureDown = new Image(Animal.class.getResourceAsStream("/textures/down.png"));
+    private static final Image textureLeft = new Image(Animal.class.getResourceAsStream("/textures/left.png"));
+    private static final Image textureRight = new Image(Animal.class.getResourceAsStream("/textures/right.png"));
 
     public Animal(Vector2d position){
         this.position = position;
+        try {
+            box = new WorldElementBox(this);
+        }
+        // JavaFX sie nie ładuje w testach
+        catch (NoClassDefFoundError ignored){
+            box = null;
+        }
     }
     public Animal(){
         this(new Vector2d(2, 2));
@@ -37,6 +53,10 @@ public class Animal implements WorldElement {
             case LEFT -> orientation = orientation.previous();
             case RIGHT -> orientation = orientation.next();
         }
+
+        if(box != null){
+            box.updateVBox();
+        }
     }
 
     public MapDirection getOrientation() {
@@ -46,5 +66,25 @@ public class Animal implements WorldElement {
     @Override
     public Vector2d getPosition() {
         return position;
+    }
+
+    @Override
+    public Image getTexture() {
+        return switch (orientation){
+            case NORTH -> textureUp;
+            case EAST -> textureRight;
+            case SOUTH -> textureDown;
+            case WEST -> textureLeft;
+        };
+    }
+
+    @Override
+    public String getLabel() {
+        return "Z " + position.toString();
+    }
+
+    @Override
+    public WorldElementBox getBox() {
+        return box;
     }
 }
