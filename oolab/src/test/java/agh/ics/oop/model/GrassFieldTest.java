@@ -3,10 +3,7 @@ package agh.ics.oop.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Vector;
+import java.util.*;
 
 public class GrassFieldTest {
     @Test
@@ -33,16 +30,16 @@ public class GrassFieldTest {
         int animalCounter = 0;
         for(int x = grassField.getCurrentBounds().lowerLeftCorner().getX(); x <= grassField.getCurrentBounds().upperRightCorner().getX(); ++x){
             for(int y = grassField.getCurrentBounds().lowerLeftCorner().getY(); y <= grassField.getCurrentBounds().upperRightCorner().getY(); ++y){
-                WorldElement animal = grassField.objectAt(new Vector2d(x, y));
-                if (animal != null && animal.getClass() == Animal.class){
+                var optionalAnimal = grassField.objectAt(new Vector2d(x, y));
+                if (optionalAnimal.isPresent() && optionalAnimal.get().getClass() == Animal.class){
                     ++animalCounter;
                 }
             }
         }
         Assertions.assertEquals(3, animalCounter);
-        Assertions.assertEquals(animal1, grassField.objectAt(new Vector2d(0, 0)));
-        Assertions.assertEquals(animal3, grassField.objectAt(new Vector2d(1, 0)));
-        Assertions.assertEquals(animal4, grassField.objectAt(new Vector2d(1, 1)));
+        Assertions.assertEquals(animal1, grassField.objectAt(new Vector2d(0, 0)).orElse(null));
+        Assertions.assertEquals(animal3, grassField.objectAt(new Vector2d(1, 0)).orElse(null));
+        Assertions.assertEquals(animal4, grassField.objectAt(new Vector2d(1, 1)).orElse(null));
     }
 
     @Test
@@ -186,11 +183,11 @@ public class GrassFieldTest {
         grassField.move(rodzina4, MoveDirection.FORWARD);
 
         // każdy dotarł tam gdzie powinien
-        Assertions.assertEquals(rodzina2, grassField.objectAt(new Vector2d(1, 3)));
-        Assertions.assertEquals(jubilat, grassField.objectAt(new Vector2d(2, 3)));
-        Assertions.assertEquals(rodzina1, grassField.objectAt(new Vector2d(3, 3)));
-        Assertions.assertEquals(rodzina3, grassField.objectAt(new Vector2d(4, 3)));
-        Assertions.assertEquals(rodzina4, grassField.objectAt(new Vector2d(5, 3)));
+        Assertions.assertEquals(rodzina2, grassField.objectAt(new Vector2d(1, 3)).orElse(null));
+        Assertions.assertEquals(jubilat, grassField.objectAt(new Vector2d(2, 3)).orElse(null));
+        Assertions.assertEquals(rodzina1, grassField.objectAt(new Vector2d(3, 3)).orElse(null));
+        Assertions.assertEquals(rodzina3, grassField.objectAt(new Vector2d(4, 3)).orElse(null));
+        Assertions.assertEquals(rodzina4, grassField.objectAt(new Vector2d(5, 3)).orElse(null));
     }
 
     // objectAt testowany wraz z innymi
