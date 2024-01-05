@@ -4,6 +4,7 @@ import agh.ics.oop.model.util.Boundary;
 import agh.ics.oop.model.util.MapVisualizer;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public abstract class AbstractWorldMap implements WorldMap {
     protected final Map<Vector2d, Animal> animalMap = new HashMap<>();
@@ -17,13 +18,13 @@ public abstract class AbstractWorldMap implements WorldMap {
     private final UUID uuid = UUID.randomUUID();
 
     @Override
-    public WorldElement objectAt(Vector2d position){
-        return animalMap.get(position);
+    public Optional<WorldElement> objectAt(Vector2d position){
+        return Optional.ofNullable(animalMap.get(position));
     }
     // MapVisualizer (linia 78) dla GrassField wymaga aby zwracało true jeśli jest tam albo trawa albo zwierzak
     @Override
     public boolean isOccupied(Vector2d position) {
-        return objectAt(position) != null;
+        return objectAt(position).isPresent();
     }
     @Override
     public boolean canMoveTo(Vector2d position){
@@ -90,5 +91,14 @@ public abstract class AbstractWorldMap implements WorldMap {
     @Override
     public List<WorldElement> getElements() {
         return new ArrayList<>(animalMap.values());
+    }
+
+    @Override
+    public List<Animal> getOrderedAnimals() {
+        return animalMap
+                .values()
+                .stream()
+                .sorted(new AnimalSortingComparator())
+                .toList();
     }
 }
