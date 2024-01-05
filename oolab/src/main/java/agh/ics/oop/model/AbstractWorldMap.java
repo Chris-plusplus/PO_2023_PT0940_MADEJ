@@ -98,7 +98,7 @@ public abstract class AbstractWorldMap implements WorldMap {
         return animalMap
                 .values()
                 .stream()
-                .sorted(new AnimalSortingComparator())
+                .sorted(AnimalSortingComparator::compare)
                 .toList();
     }
 }
