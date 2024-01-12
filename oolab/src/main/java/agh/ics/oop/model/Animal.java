@@ -3,6 +3,8 @@ package agh.ics.oop.model;
 import agh.ics.oop.presenter.WorldElementBox;
 import javafx.scene.image.Image;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -11,6 +13,7 @@ public class Animal implements WorldElement {
     private Vector2d position;
     private WorldElementBox box;
     private int energy;
+    private List<Integer> genes;
 
     private static final Map<MapDirection, Image> textures = Map.of(
             MapDirection.NORTH, new Image(Animal.class.getResourceAsStream("/textures/up.png")),
@@ -85,5 +88,13 @@ public class Animal implements WorldElement {
     @Override
     public WorldElementBox getBox() {
         return box;
+    }
+
+    public int getEnergy() {
+        return energy;
+    }
+
+    public List<Integer> getGenes() {
+        return Collections.unmodifiableList(genes);
     }
 }
