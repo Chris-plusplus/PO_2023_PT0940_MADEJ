@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.GridPane?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            minHeight="500.0" minWidth="750.0"
+            minHeight="750.0" minWidth="1000.0"
             fx:controller="agh.ics.oop.presenter.SimulationPresenter">
     <stylesheets>
         <URL value="@styles.css"/>
@@ -17,7 +17,7 @@
     </top-->
     <center>
         <!--Label fx:id="infoLabel" text="All animals will be living here!" textAlignment="CENTER" styleClass="sharedFont"/-->
-        <GridPane fx:id="mapGrid" gridLinesVisible="true" styleClass="gridFont, centered"/>
+        <GridPane fx:id="mapGrid" gridLinesVisible="true" styleClass="gridFont, centered" />
     </center>
     <bottom>
         <VBox>

@@ -1,3 +1,7 @@
+.cellSize{
+    -fx-pref-height: 50px;
+}
+
 .sharedFont {
     -fx-font-family: Consolas;
     -fx-font-size: 20px;
@@ -5,12 +9,12 @@
 
 .gridFont {
     -fx-font-family: Consolas;
-    -fx-font-size: 12px;
+    -fx-font-size: 20px;
 }
 
 .axis{
     -fx-font-family: Consolas;
-    -fx-font-size: 10px;
+    -fx-font-size: 20px;
 }
 
 .centered{
@@ -36,4 +40,8 @@
 
 .grass{
     -fx-text-fill: #00bf00;
+}
+
+.worldElementBoxFont{
+    -fx-font-size: 10px;
 }

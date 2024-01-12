@@ -36,14 +36,14 @@ public class RectangularMapTest {
         int animalCounter = 0;
         for(int x = map.getCurrentBounds().lowerLeftCorner().getX(); x <= map.getCurrentBounds().upperRightCorner().getX(); ++x){
             for(int y = map.getCurrentBounds().lowerLeftCorner().getY(); y <= map.getCurrentBounds().upperRightCorner().getY(); ++y){
-                if (map.objectAt(new Vector2d(x, y)) != null){
+                if (map.objectAt(new Vector2d(x, y)).isPresent()){
                     ++animalCounter;
                 }
             }
         }
         Assertions.assertEquals(2, animalCounter);
-        Assertions.assertEquals(animal4, map.objectAt(new Vector2d(2, 2)));
-        Assertions.assertEquals(animal6, map.objectAt(new Vector2d(0, 0)));
+        Assertions.assertEquals(animal4, map.objectAt(new Vector2d(2, 2)).orElse(null));
+        Assertions.assertEquals(animal6, map.objectAt(new Vector2d(0, 0)).orElse(null));
     }
 
     @Test
@@ -108,7 +108,7 @@ public class RectangularMapTest {
         }
         map.move(animal1, MoveDirection.RIGHT);
         map.move(animal2, MoveDirection.RIGHT);
-        while (map.objectAt(animal1.getPosition().add(MapDirection.EAST.toUnitVector())) != animal2){
+        while (map.objectAt(animal1.getPosition().add(MapDirection.EAST.toUnitVector())).orElse(null) != animal2){
             map.move(animal1, MoveDirection.FORWARD);
             map.move(animal2, MoveDirection.FORWARD);
         }

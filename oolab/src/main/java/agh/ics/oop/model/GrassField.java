@@ -4,6 +4,7 @@ import agh.ics.oop.model.util.Boundary;
 import agh.ics.oop.model.util.RandomPositionGenerator;
 
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class GrassField extends AbstractWorldMap {
@@ -74,12 +75,12 @@ public class GrassField extends AbstractWorldMap {
     }
 
     @Override
-    public WorldElement objectAt(Vector2d position){
+    public Optional<WorldElement> objectAt(Vector2d position){
         WorldElement animal = animalMap.get(position);
         if(animal == null){
-            return grassMap.get(position);
+            return Optional.ofNullable(grassMap.get(position));
         }
-        return animal;
+        return Optional.of(animal);
     }
 
     @Override
@@ -93,9 +94,12 @@ public class GrassField extends AbstractWorldMap {
 
     @Override
     public List<WorldElement> getElements() {
-        var elements = super.getElements();
-        elements.addAll(grassMap.values());
-        return elements;
+        return Stream
+                .concat(
+                        super.getElements().stream(),
+                        grassMap.values().stream()
+                )
+                .toList();
     }
 
     @Override

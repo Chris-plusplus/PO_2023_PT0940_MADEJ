@@ -2,6 +2,7 @@ package agh.ics.oop.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class TextMap implements GenericWorldMap<String, Integer>{
     private final List<String> container = new ArrayList<>();
@@ -25,12 +26,12 @@ public class TextMap implements GenericWorldMap<String, Integer>{
     }
 
     @Override
-    public String objectAt(Integer position) {
+    public Optional<String> objectAt(Integer position) {
         if(isOccupied(position)){
-            return container.get(position);
+            return Optional.of(container.get(position));
         }
         else{
-            return null;
+            return Optional.empty();
         }
     }
 

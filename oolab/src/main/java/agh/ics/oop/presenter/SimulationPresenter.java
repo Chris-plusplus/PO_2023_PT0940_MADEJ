@@ -7,16 +7,15 @@ import agh.ics.oop.WorldGUI;
 import agh.ics.oop.model.*;
 import agh.ics.oop.model.util.Boundary;
 import javafx.application.Platform;
+import javafx.css.CssMetaData;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Cell;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 
 import java.util.List;
@@ -35,10 +34,21 @@ public class SimulationPresenter implements MapChangeListener {
     @FXML
     private Button startButton;
     private WorldMap worldMap;
-    private final static double CELL_SIZE = 25;
+    private static double CELL_SIZE = -1;
 
     public void setWorldMap(WorldMap worldMap) {
         this.worldMap = worldMap;
+    }
+
+    public static void readCellSize(BorderPane root){
+        VBox cssReader = new VBox();
+        root.getChildren().add(cssReader);
+        int VBoxIndex = root.getChildren().size() - 1;
+        cssReader.getStyleClass().add("cellSize");
+        Platform.runLater(() -> {
+            CELL_SIZE = cssReader.getPrefHeight();
+            root.getChildren().remove(VBoxIndex);
+        });
     }
 
     @Override
@@ -81,10 +91,10 @@ public class SimulationPresenter implements MapChangeListener {
     }
 
     private void drawElements(WorldMap worldMap, Boundary boundary){
-        for (WorldElement worldElement : worldMap.getElements().
+        for (WorldElement worldElement : worldMap.getElements()
                 // wybiera po jednym obiekcie na pozycję, zwierzak ma pierwszeństwo przed trawą
-                stream().
-                collect(Collectors.toMap(
+                .stream()
+                .collect(Collectors.toMap(
                         WorldElement::getPosition,
                         Function.identity(),
                         (worldElement1, worldElement2) -> (worldElement1.toString().equals("*") ? worldElement2 : worldElement1)
@@ -93,14 +103,9 @@ public class SimulationPresenter implements MapChangeListener {
             int x = worldElement.getPosition().getX() - boundary.lowerLeftCorner().getX() + 1;
             int y = boundary.upperRightCorner().getY() - worldElement.getPosition().getY() + 1;
 
-            var elementLabel = new Label(worldElement.toString());
-            GridPane.setHalignment(elementLabel, HPos.CENTER);
-            elementLabel.getStyleClass().addAll(
-                    "worldElement",
-                    worldElement.toString().equals("*") ? "grass" : "animal"
-            );
+            VBox worldElementVBox = worldElement.getBox().getvBox();
 
-            mapGrid.add(elementLabel, x, y);
+            mapGrid.add(worldElementVBox, x, y);
         }
     }
 

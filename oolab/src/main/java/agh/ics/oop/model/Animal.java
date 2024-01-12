@@ -1,13 +1,32 @@
 package agh.ics.oop.model;
 
+import agh.ics.oop.presenter.WorldElementBox;
+import javafx.scene.image.Image;
+
+import java.util.Map;
 import java.util.Objects;
 
 public class Animal implements WorldElement {
     private MapDirection orientation = MapDirection.NORTH;
     private Vector2d position;
+    private WorldElementBox box;
+
+    private static final Map<MapDirection, Image> textures = Map.of(
+            MapDirection.NORTH, new Image(Animal.class.getResourceAsStream("/textures/up.png")),
+            MapDirection.SOUTH, new Image(Animal.class.getResourceAsStream("/textures/down.png")),
+            MapDirection.EAST, new Image(Animal.class.getResourceAsStream("/textures/right.png")),
+            MapDirection.WEST, new Image(Animal.class.getResourceAsStream("/textures/left.png"))
+    );
 
     public Animal(Vector2d position){
         this.position = position;
+        try {
+            box = new WorldElementBox(this);
+        }
+        // JavaFX sie nie ładuje w testach
+        catch (NoClassDefFoundError ignored){
+            box = null;
+        }
     }
     public Animal(){
         this(new Vector2d(2, 2));
@@ -37,6 +56,10 @@ public class Animal implements WorldElement {
             case LEFT -> orientation = orientation.previous();
             case RIGHT -> orientation = orientation.next();
         }
+
+        if(box != null){
+            box.updateVBox();
+        }
     }
 
     public MapDirection getOrientation() {
@@ -46,5 +69,20 @@ public class Animal implements WorldElement {
     @Override
     public Vector2d getPosition() {
         return position;
+    }
+
+    @Override
+    public Image getTexture() {
+        return textures.get(this.orientation);
+    }
+
+    @Override
+    public String getLabel() {
+        return "Z " + position.toString();
+    }
+
+    @Override
+    public WorldElementBox getBox() {
+        return box;
     }
 }

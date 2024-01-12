@@ -141,12 +141,12 @@ public class TextMapTest {
         map.place(s6);
 
         for(int i = 0; i != 6; ++i){
-            Assertions.assertNotNull(map.objectAt(i));
+            Assertions.assertTrue(map.objectAt(i).isPresent());
         }
-        Assertions.assertNull(map.objectAt(-1));
-        Assertions.assertNull(map.objectAt(420));
-        Assertions.assertNull(map.objectAt(-1337));
-        Assertions.assertNull(map.objectAt(6));
-        Assertions.assertNull(map.objectAt(7));
+        Assertions.assertFalse(map.objectAt(-1).isPresent());
+        Assertions.assertFalse(map.objectAt(420).isPresent());
+        Assertions.assertFalse(map.objectAt(-1337).isPresent());
+        Assertions.assertFalse(map.objectAt(6).isPresent());
+        Assertions.assertFalse(map.objectAt(7).isPresent());
     }
 }
