@@ -3,6 +3,7 @@ package agh.ics.oop.model;
 import agh.ics.oop.presenter.WorldElementBox;
 import javafx.scene.image.Image;
 
+import java.util.Map;
 import java.util.Objects;
 
 public class Animal implements WorldElement {
@@ -10,10 +11,12 @@ public class Animal implements WorldElement {
     private Vector2d position;
     private WorldElementBox box;
 
-    private static final Image textureUp = new Image(Animal.class.getResourceAsStream("/textures/up.png"));
-    private static final Image textureDown = new Image(Animal.class.getResourceAsStream("/textures/down.png"));
-    private static final Image textureLeft = new Image(Animal.class.getResourceAsStream("/textures/left.png"));
-    private static final Image textureRight = new Image(Animal.class.getResourceAsStream("/textures/right.png"));
+    private static final Map<MapDirection, Image> textures = Map.of(
+            MapDirection.NORTH, new Image(Animal.class.getResourceAsStream("/textures/up.png")),
+            MapDirection.SOUTH, new Image(Animal.class.getResourceAsStream("/textures/down.png")),
+            MapDirection.EAST, new Image(Animal.class.getResourceAsStream("/textures/right.png")),
+            MapDirection.WEST, new Image(Animal.class.getResourceAsStream("/textures/left.png"))
+    );
 
     public Animal(Vector2d position){
         this.position = position;
@@ -70,12 +73,7 @@ public class Animal implements WorldElement {
 
     @Override
     public Image getTexture() {
-        return switch (orientation){
-            case NORTH -> textureUp;
-            case EAST -> textureRight;
-            case SOUTH -> textureDown;
-            case WEST -> textureLeft;
-        };
+        return textures.get(this.orientation);
     }
 
     @Override
