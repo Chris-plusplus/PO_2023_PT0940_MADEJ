@@ -14,6 +14,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,6 +79,12 @@ public class MainMenu {
                 new Vector2d(3, 4)
         );
         grassField.addListener(listener);
+        grassField.addListener(((worldMap, message) -> {
+            SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+            Date date = new Date();
+            System.out.println(formatter.format(date) + ' ' + message);
+        }));
+        grassField.addListener(new FileMapDisplay());
 
         NotifyingSimulation newSimulation = new NotifyingSimulation(positions, directions, grassField, simulationController);
 

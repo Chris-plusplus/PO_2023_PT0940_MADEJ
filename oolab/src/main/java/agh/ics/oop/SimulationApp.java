@@ -1,6 +1,7 @@
 package agh.ics.oop;
 
 import agh.ics.oop.presenter.MainMenu;
+import agh.ics.oop.presenter.SimulationPresenter;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -33,5 +34,7 @@ public class SimulationApp extends Application {
         primaryStage.setTitle("Simulation app main menu");
         primaryStage.minWidthProperty().bind(viewRoot.minWidthProperty());
         primaryStage.minHeightProperty().bind(viewRoot.minHeightProperty());
+
+        SimulationPresenter.readCellSize(viewRoot);
     }
 }
