@@ -12,6 +12,8 @@ public enum MapDirection {
 
     private String stringRepresentation;
     private Vector2d unitVector;
+    private int num;
+
     private MapDirection(String strRep, Vector2d uV){
         stringRepresentation = strRep;
         unitVector = uV;
@@ -47,5 +49,36 @@ public enum MapDirection {
     }
     public Vector2d toUnitVector(){
         return new Vector2d(unitVector.getX(), unitVector.getY());
+    }
+
+    public int getNum(){
+        return switch (this){
+            case NORTH -> 0;
+            case NORTHEAST -> 1;
+            case EAST -> 2;
+            case SOUTHEAST -> 3;
+            case SOUTH -> 4;
+            case SOUTHWEST -> 5;
+            case WEST -> 6;
+            case NORTHWEST -> 7;
+        };
+    }
+
+    public static MapDirection fromNum(int num){
+        return switch (num % 8){
+            case 0 -> NORTH;
+            case 1 -> NORTHEAST;
+            case 2 -> EAST;
+            case 3 -> SOUTHEAST;
+            case 4 -> SOUTH;
+            case 5 -> SOUTHWEST;
+            case 6 -> WEST;
+            case 7 -> NORTHWEST;
+            default -> throw new IllegalArgumentException("num must be 0 or greater");
+        };
+    }
+
+    public MapDirection add(int num) {
+        return fromNum(this.getNum() + num);
     }
 }
