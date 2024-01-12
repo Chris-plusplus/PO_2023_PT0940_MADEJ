@@ -10,6 +10,7 @@ public class Animal implements WorldElement {
     private MapDirection orientation = MapDirection.NORTH;
     private Vector2d position;
     private WorldElementBox box;
+    private int energy;
 
     private static final Map<MapDirection, Image> textures = Map.of(
             MapDirection.NORTH, new Image(Animal.class.getResourceAsStream("/textures/up.png")),
