@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class World {
+public class World { // czy to jest używane?
     public static void main(String[] args){
         try {
             List<MoveDirection> directions = OptionsParser.parse(List.of(args));

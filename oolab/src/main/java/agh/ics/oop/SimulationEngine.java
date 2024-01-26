@@ -8,7 +8,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public class SimulationEngine {
+public class SimulationEngine { // czy to jest używane?
     private final List<Simulation> simulations;
     private List<Thread> threads = new ArrayList<>();
     private ExecutorService threadPool = Executors.newFixedThreadPool(4);

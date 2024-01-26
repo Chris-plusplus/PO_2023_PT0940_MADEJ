@@ -86,7 +86,7 @@ public class Animal implements WorldElement {
     }
 
     @Override
-    public WorldElementBox getBox() {
+    public WorldElementBox getBox() { // czy to powinno być w zwierzęciu?
         return box;
     }
 

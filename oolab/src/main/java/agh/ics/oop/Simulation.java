@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.Callable;
 
-public class Simulation implements Runnable{
+public class Simulation implements Runnable{ // czy to jest używane?
     private final List<Animal> animals;
     private final List<MoveDirection> moves;
     private final WorldMap map;

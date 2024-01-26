@@ -34,7 +34,7 @@ public class GeneCombiner {
 
         int geneCountFromStronger = (stronger.getEnergy() * stronger.getGenes().size()) / (parent1.getEnergy() + parent2.getEnergy());
 
-        Random random = new Random();
+        Random random = new Random(); // co wywołanie?
         boolean strongerFirst = random.nextBoolean();
 
         if(strongerFirst){
